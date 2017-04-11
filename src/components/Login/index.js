@@ -2,9 +2,10 @@ import React, { PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
 
 let Login = (props)=>{
+  const { onSubmit, handleSubmit } = props;
   return (
     <div className="wrapper">
-      <form className="form-signin">
+      <form className="form-signin" onSubmit={handleSubmit(onSubmit)}>
         <h2 className="form-signin-heading">Please login</h2>
         <div>
           <Field name="username" className="form-control" component="input" type="text" placeholder="Email Address"/>
