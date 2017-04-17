@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 
 import Login from '../Login';
@@ -14,8 +15,11 @@ class Home extends React.Component {
   }
 
   handleSubmit(info){
-    console.log('info', info);
-    this.props.actions.Authorize(info.username, info.password);
+    this.props.actions.Authorize(info.username, info.password).then(()=>{
+      browserHistory.push('/dashboard');
+    },()=>{
+      browserHistory.replace("/");
+    });
   }
 
   render(){
@@ -26,7 +30,6 @@ class Home extends React.Component {
 }
 
 function mapStateToProps(state, ownProps){
-  debugger;
   return {
 
   };

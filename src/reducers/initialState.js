@@ -1,5 +1,4 @@
 export default {
-  authInfo: {
-    loggedIn: false
-  }
+  loggedIn: false,
+  user: {}
 }

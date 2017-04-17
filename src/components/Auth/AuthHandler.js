@@ -3,11 +3,12 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 
-import * as authActions from '../../actions/AuthActions';
+import * as statusActions from '../../actions/StatusActions';
 
 class AuthHandler extends React.Component {
   constructor(props, context){
     super(props, context);
+    this.state = {};
   }
 
   componentDidMount(){
@@ -34,14 +35,14 @@ AuthHandler.propTypes ={
 function mapStateToProps(state, ownProps){
   debugger;
   return {
-    //isLoggedIn: state.loggedIn || false,
+    isLoggedIn: state.loggedIn || false,
     currentURL: ownProps.location.pathname
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(authActions, dispatch)
+    actions: bindActionCreators(statusActions, dispatch)
   };
 }
 

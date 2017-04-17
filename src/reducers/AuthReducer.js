@@ -1,10 +1,10 @@
 import initialState from './initialState';
 import * as types from '../actions/actionTypes';
 
-export default function AuthReducer(state = initialState.authInfo, action){
+export default function AuthReducer(state = initialState.user, action){
    switch(action.type){
      case types.AUTHORIZE_SUCCESS:
-        return Object.assign(state.loggedIn, true);
+        return action.user;
      default:
        return state;
    }

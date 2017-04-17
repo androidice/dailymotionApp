@@ -1,4 +1,5 @@
 import delay from './delay';
+import _ from 'underscore';
 
 export function Authorize(username, password) {
   return new Promise((resolve, reject)=>{
@@ -13,7 +14,11 @@ export function Authorize(username, password) {
           username:'a@a.com',
           password:'qwerty'
         })){
-        resolve(meta);
+
+        delete meta['password'];
+        resolve(_.extend(meta,{profile:{
+          name: 'Kevin Alviola'
+        }}));
       }else{
         reject('login-invalid');
       }
