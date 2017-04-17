@@ -3,7 +3,7 @@ import { Route, IndexRoute} from 'react-router';
 
 import App from './components/App';
 import Home from './components/Home';
-import DashBoard from './components/DashBoard'
+import DashBoard from './components/DashBoard';
 import AuthHandler from './components/Auth/AuthHandler';
 
 export default (

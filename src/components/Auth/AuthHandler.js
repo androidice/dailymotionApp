@@ -35,7 +35,7 @@ AuthHandler.propTypes ={
 function mapStateToProps(state, ownProps){
   debugger;
   return {
-    isLoggedIn: state.loggedIn || false,
+    isLoggedIn: true,
     currentURL: ownProps.location.pathname
   };
 }
