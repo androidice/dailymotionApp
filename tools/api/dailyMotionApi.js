@@ -1,21 +1,26 @@
 import settings from '../../src/settings';
-
+import request from 'request'
 function getAccessToken(app){
-  app.get('/getAccessToken', (req, res)=>{
-    let OAuth2 = require('OAuth').OAuth2;
-    let oauth2 = new OAuth2(settings.dailyMotion.API_KEY, settings.dailyMotion.API_SECRET, 'https://api.dailymotion.com/', null, 'oauth/token', null);
-    oauth2.getOAuthAccessToken('', {
-      'grant_type': 'authorization_code'
-    }, function (e, access_token) {
-      console.log('error', e);
-      console.log('access_token', access_token);
-      // if(!e){
-      //   res.type('application/json');
-      //   res.status(200).send({access_token: access_token});
-      //   res.end();
-      // }else{
-      //   throw JSON.stringify(JSON.parse(e.data));
-      // }
+  app.post('/getAccessToken', (req, res)=>{
+    request.post({
+      url: 'https://api.dailymotion.com/oauth/token',
+      headers:{
+        'Content-Type':'application/x-www-form-urlencoded'
+      },
+      form:{
+        redirect_uri: settings.dailyMotion.CALL_BACK_URL,
+        grant_type: 'authorization_code',
+        client_id: settings.dailyMotion.API_KEY,
+        client_secret: settings.dailyMotion.API_SECRET,
+        code: req.body.auth_code
+      },
+      json:true
+    },(error, response, body)=>{
+      if(!error){
+        res.type('application/json');
+        res.status(200).send({access_token: body.access_token});
+        res.end();
+      }
     });
   });
 }
