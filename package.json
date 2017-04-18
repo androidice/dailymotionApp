@@ -15,9 +15,11 @@
   "license": "MIT",
   "dependencies": {
     "babel-polyfill": "6.8.0",
+    "body-parser": "^1.17.1",
     "bootstrap": "^3.3.6",
     "jquery": "2.2.3",
     "lodash": "^4.17.4",
+    "oauth": "^0.9.15",
     "react": "15.0.2",
     "react-dom": "15.0.2",
     "react-redirect": "^1.0.0",
@@ -27,7 +29,9 @@
     "redux": "3.5.2",
     "redux-form": "^6.6.2",
     "redux-thunk": "2.0.1",
+    "request": "^2.81.0",
     "sematable": "^1.4.5",
+    "superagent": "^3.5.2",
     "toastr": "2.1.2",
     "underscore": "^1.8.3"
   },

@@ -3,6 +3,8 @@ import webpack from 'webpack';
 import path from 'path';
 import config from '../webpack.config.dev';
 import open from 'open';
+import bodyParser from 'body-parser';
+import dailyMotion from './api/dailyMotionApi';
 
 /* eslint-disable no-console */
 
@@ -16,6 +18,14 @@ app.use(require('webpack-dev-middleware')(compiler, {
 }));
 
 app.use(require('webpack-hot-middleware')(compiler));
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// parse application/json
+app.use(bodyParser.json());
+
+dailyMotion(app);
 
 app.get('*', function(req, res) {
   res.sendFile(path.join( __dirname, '../src/index.html'));

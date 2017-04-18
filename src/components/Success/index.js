@@ -17,7 +17,7 @@ class Success extends React.Component {
         this.params[nv[0]] = nv[1] || true;
       }
     }
-    localStorage.setItem('access_token', this.params.code);
+    localStorage.setItem('auth_code', this.params.code);
     browserHistory.replace('/dashboard');
   }
 
