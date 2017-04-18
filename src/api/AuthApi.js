@@ -4,7 +4,6 @@ import _ from 'underscore';
 export function Authorize(username, password) {
   return new Promise((resolve, reject)=>{
     setTimeout(()=>{
-      debugger;
       let meta ={
         username,
         password

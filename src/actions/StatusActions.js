@@ -4,9 +4,8 @@ export function BroadCastLoginState(state) {
   return { type: types.LOGIN_STATE, state };
 }
 
-export function CheckLoginStatus() {
+export function checkLoginStatus() {
   return function (dispatch){
-    debugger;
     let isLogin = localStorage.getItem('isLogin');
     console.log('isLogin', isLogin);
     if (isLogin) {
