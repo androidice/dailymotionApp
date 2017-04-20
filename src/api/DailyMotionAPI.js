@@ -30,3 +30,19 @@ export function getVideos(access_token) {
       });
   });
 }
+
+export function getVideo(access_token, video_id){
+  debugger;
+  return new Promise((resolve, reject)=>{
+    request
+      .post(settings.host + '/getVideo')
+      .send({ access_token, video_id })
+      .end((err, res) => {
+        if (!err) {
+          resolve(JSON.parse(res.text));
+        } else {
+          reject(err);
+        }
+      });
+  });
+}

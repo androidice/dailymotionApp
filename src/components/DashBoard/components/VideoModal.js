@@ -20,14 +20,15 @@ let VideoModal = (props) =>{
       contentLabel={contentLabel}
       style={customStyles}
     >
-      <h1>Modal Content</h1>
+      <span>{video.title}</span>
+
       <button onClick={closeModal}>close</button>
     </Modal>
   );
 };
 
 VideoModal.propTypes ={
-  video: PropTypes.string,
+  video: PropTypes.object.isRequired,
   isOpen: PropTypes.bool.isRequired,
   contentLabel: PropTypes.string.isRequired
 };

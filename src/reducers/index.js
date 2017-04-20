@@ -5,6 +5,7 @@ import AuthReducer from './AuthReducer';
 import loggedIn from './StatusReducer';
 import AccessTokenReducer from './AccessTokenReducer';
 import videos from './VideosReducer';
+import video from './VideoReducer';
 
 
 const rootReducer = combineReducers({
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   form: formReducer,
   access_token: AccessTokenReducer,
   videos,
+  video,
   sematable
 });
 

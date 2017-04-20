@@ -45,7 +45,27 @@ function getVideos(app){
   });
 }
 
+function getVideo(app){
+  app.post('/getVideo', (req, res)=>{
+    request({
+      method: 'GET',
+      url: 'https://api.dailymotion.com/video/VIDEO_ID'.replace('VIDEO_ID', req.body.video_id),
+      headers: {
+        Authorization: 'Bearer ' + req.body.access_token
+      }
+    }, (error, response, body)=>{
+      if(!error){
+        let result = JSON.parse(body);
+        res.type('application/json');
+        res.status(200).send({video: result});
+        res.end();
+      }
+    });
+  });
+}
+
 export default function exposeDailyMotionApi(app){
   getAccessToken(app);
   getVideos(app);
+  getVideo(app);
 }

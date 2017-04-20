@@ -12,7 +12,7 @@ class DashBoard extends React.Component {
       access_token: this.props.access_token,
       videos: this.props.videos,
       modalIsOpen: false,
-      video: {}
+      video: this.props.video
     };
     this.handleOpenModal = this.handleOpenModal.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
@@ -35,7 +35,7 @@ class DashBoard extends React.Component {
   handleClickVideoTitle(event){
     event.preventDefault();
     let videoId = event.target.id || '';
-    this.handleOpenModal();
+    this.props.actions.getVideo(this.state.access_token, videoId);
   }
 
   componentWillReceiveProps(nextProps){
@@ -47,6 +47,10 @@ class DashBoard extends React.Component {
     if(nextProps.videos && nextProps.videos.length > 0){
       this.setState({videos: Object.assign([], nextProps.videos)});
     }
+    if(nextProps.video && nextProps.video.id){
+      this.setState({video: Object.assign({}, nextProps.video)});
+      this.handleOpenModal();
+    }
   }
 
   render(){
@@ -55,7 +59,7 @@ class DashBoard extends React.Component {
       <div>
         <h2>DashBoard</h2>
         <VideoList data={this.state.videos} onVideoTitleClick={this.handleClickVideoTitle}/>
-        <VideoModal isOpen={this.state.modalIsOpen} contentLabel="videoModal" closeModal={this.handleCloseModal}/>
+        <VideoModal isOpen={this.state.modalIsOpen} contentLabel="videoModal" closeModal={this.handleCloseModal} video={this.state.video}/>
       </div>
     );
   }
@@ -68,9 +72,17 @@ DashBoard.propTypes = {
 };
 
 function mapStateToProps(state, ownProps){
+  let video = {
+    id: undefined,
+    title: '',
+    channel: '',
+    owner: ''
+  };
+
   return {
     access_token: state.access_token,
-    videos: state.videos || []
+    videos: state.videos || [],
+    video: state.video || video
   };
 }
 
