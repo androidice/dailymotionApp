@@ -1,9 +1,11 @@
 import React, { Component, PropTypes } from 'react';
-import sematable, { Table } from 'sematable';
+import sematable, { SortableHeader } from 'sematable';
 
 const columns = [
-  { key: 'id', primaryKey: true, header: 'ID', sortable: true },
-  { key: 'firstName', header: 'First name', searchable: true, sortable: true }
+  { key: 'id',  header: 'ID', searchable: true, sortable: true, primaryKey: true },
+  { key: 'title', header: 'Title', searchable: true, sortable: true },
+  { key: 'channel', header: 'Channel', searchable: true, sortable: true },
+  { key: 'owner', header: 'Owner', searchable: true, sortable: true }
 ];
 
 class VideoList extends React.Component {
@@ -12,11 +14,33 @@ class VideoList extends React.Component {
   }
 
   render(){
+    debugger;
+    const {
+      headers: {id, title, channel, owner},
+      data } = this.props;
     return (
-      <Table
-        {...this.props}
-        columns={columns}
-      />
+     <div className="table-responsive">
+       <table className="table table-sm table-striped table-hover">
+          <thead>
+            <tr>
+              <SortableHeader {...id} />
+              <SortableHeader {...title} />
+              <SortableHeader {...channel} />
+              <SortableHeader {...owner} />
+            </tr>
+          </thead>
+         <tbody>
+         {data.map((app)=>(
+           <tr key={app.id}>
+              <td>{app.id}</td>
+              <td><a href="javascript.void()">{app.title}</a></td>
+              <td>{app.channel}</td>
+              <td>{app.owner}</td>
+           </tr>
+         ))}
+         </tbody>
+       </table>
+     </div>
     );
   }
 }

@@ -1,5 +1,6 @@
 import settings from '../../src/settings';
-import request from 'request'
+import request from 'request';
+
 function getAccessToken(app){
   app.post('/getAccessToken', (req, res)=>{
     request.post({
@@ -18,8 +19,32 @@ function getAccessToken(app){
     },(error, response, body)=>{
       if(!error){
         res.type('application/json');
+        console.log('body', body);
         res.status(200).send({access_token: body.access_token});
         res.end();
+      }else {
+        console.log('error', error);
+      }
+    });
+  });
+}
+
+function getVideos(app){
+  app.post('/getVideos',(req, res)=>{
+    request({
+      method: 'GET',
+      url: 'https://api.dailymotion.com/videos',
+      headers: {
+        Authorization: 'Bearer ' + req.body.access_token
+      }
+    }, (error, response, body)=>{
+      if(!error){
+        let result = JSON.parse(body);
+        res.type('application/json');
+        res.status(200).send({videos: result.list});
+        res.end();
+      }else {
+        console.log('error', error);
       }
     });
   });
@@ -27,4 +52,5 @@ function getAccessToken(app){
 
 export default function exposeDailyMotionApi(app){
   getAccessToken(app);
+  getVideos(app);
 }

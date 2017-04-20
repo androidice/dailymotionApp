@@ -1,4 +1,6 @@
 export default {
   loggedIn: false,
-  user: {}
+  user: {},
+  access_token: '',
+  videos: []
 };
