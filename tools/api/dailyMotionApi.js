@@ -19,11 +19,8 @@ function getAccessToken(app){
     },(error, response, body)=>{
       if(!error){
         res.type('application/json');
-        console.log('body', body);
         res.status(200).send({access_token: body.access_token});
         res.end();
-      }else {
-        console.log('error', error);
       }
     });
   });
@@ -43,8 +40,6 @@ function getVideos(app){
         res.type('application/json');
         res.status(200).send({videos: result.list});
         res.end();
-      }else {
-        console.log('error', error);
       }
     });
   });
