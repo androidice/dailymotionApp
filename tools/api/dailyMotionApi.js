@@ -30,7 +30,7 @@ function getVideos(app){
   app.post('/getVideos',(req, res)=>{
     request({
       method: 'GET',
-      url: 'https://api.dailymotion.com/videos',
+      url: 'https://api.dailymotion.com/videos&languages=en',
       headers: {
         Authorization: 'Bearer ' + req.body.access_token
       }

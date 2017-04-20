@@ -10,17 +10,37 @@ class DashBoard extends React.Component {
     super(props, context);
     this.state = {
       access_token: this.props.access_token,
-      videos: this.props.videos
+      videos: this.props.videos,
+      modalIsOpen: false,
+      video: {}
     };
+    this.handleOpenModal = this.handleOpenModal.bind(this);
+    this.handleCloseModal = this.handleCloseModal.bind(this);
+    this.handleClickVideoTitle = this.handleClickVideoTitle.bind(this);
+
     let auth_code = localStorage.getItem('auth_code');
     if(auth_code){
       this.props.actions.getAccessToken(auth_code);
     }
   }
 
+  handleOpenModal(){
+    this.setState({modalIsOpen: true});
+  }
+
+  handleCloseModal(){
+    this.setState({modalIsOpen: false});
+  }
+
+  handleClickVideoTitle(event){
+    event.preventDefault();
+    let videoId = event.target.id || '';
+    this.handleOpenModal();
+  }
 
   componentWillReceiveProps(nextProps){
     if(nextProps.access_token!==this.state.access_token) {
+      console.log('access_token', nextProps.access_token);
       this.props.actions.getVideos(nextProps.access_token);
       this.setState({access_token: nextProps.access_token});
     }
@@ -30,11 +50,12 @@ class DashBoard extends React.Component {
   }
 
   render(){
+    debugger;
     return (
       <div>
         <h2>DashBoard</h2>
-        <VideoList data={this.state.videos}/>
-        <VideoModal/>
+        <VideoList data={this.state.videos} onVideoTitleClick={this.handleClickVideoTitle}/>
+        <VideoModal isOpen={this.state.modalIsOpen} contentLabel="videoModal" closeModal={this.handleCloseModal}/>
       </div>
     );
   }

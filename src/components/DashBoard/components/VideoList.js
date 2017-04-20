@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { Link } from 'react-router';
 import sematable, { SortableHeader } from 'sematable';
 
 const columns = [
@@ -8,46 +9,86 @@ const columns = [
   { key: 'owner', header: 'Owner', searchable: true, sortable: true }
 ];
 
-class VideoList extends React.Component {
-  constructor(props, context){
-    super(props, context);
-  }
+let VideoList = (props)=>{
+      const {
+        headers: {id, title, channel, owner},
+        data ,
+        onVideoTitleClick} = props;
 
-  render(){
-    const {
-      headers: {id, title, channel, owner},
-      data } = this.props;
-    return (
-     <div className="table-responsive">
-       <table className="table table-sm table-striped table-hover">
-          <thead>
-            <tr>
-              <SortableHeader {...id} />
-              <SortableHeader {...title} />
-              <SortableHeader {...channel} />
-              <SortableHeader {...owner} />
-            </tr>
-          </thead>
-         <tbody>
-         {data.map((app)=>(
-           <tr key={app.id}>
-              <td>{app.id}</td>
-              <td><a href="javascript.void()">{app.title}</a></td>
-              <td>{app.channel}</td>
-              <td>{app.owner}</td>
-           </tr>
-         ))}
-         </tbody>
-       </table>
-     </div>
-    );
-  }
-}
+      return (
+       <div className="table-responsive">
+         <table className="table table-sm table-striped table-hover">
+            <thead>
+              <tr>
+                <SortableHeader {...id} />
+                <SortableHeader {...title} />
+                <SortableHeader {...channel} />
+                <SortableHeader {...owner} />
+              </tr>
+            </thead>
+           <tbody>
+           {data.map((app)=>(
+             <tr key={app.id}>
+                <td>{app.id}</td>
+                <td>
+                  <a id={app.id} onClick={onVideoTitleClick}>
+                    {app.title}
+                  </a>
+                </td>
+                <td>{app.channel}</td>
+                <td>{app.owner}</td>
+             </tr>
+           ))}
+           </tbody>
+         </table>
+       </div>
+      );
 
+};
+//
+// class VideoList extends React.Component {
+//   render(){
+//     debugger;
+//     const {
+//       headers: {id, title, channel, owner},
+//       data ,
+//       onVideoTitleClick} = this.props;
+//     return (
+//      <div className="table-responsive">
+//        <table className="table table-sm table-striped table-hover">
+//           <thead>
+//             <tr>
+//               <SortableHeader {...id} />
+//               <SortableHeader {...title} />
+//               <SortableHeader {...channel} />
+//               <SortableHeader {...owner} />
+//             </tr>
+//           </thead>
+//          <tbody>
+//          {data.map((app)=>(
+//            <tr key={app.id}>
+//               <td>{app.id}</td>
+//               <td>
+//                 <a onClick={onVideoTitleClick}>
+//                   {app.title}
+//                 </a>
+//               </td>
+//               <td>{app.channel}</td>
+//               <td>{app.owner}</td>
+//            </tr>
+//          ))}
+//          </tbody>
+//        </table>
+//      </div>
+//     );
+//   }
+// }
+//
 VideoList.propTypes = {
   headers: PropTypes.object.isRequired,
   data: PropTypes.array.isRequired,
-  primaryKey: PropTypes.string.isRequired
+  primaryKey: PropTypes.string.isRequired,
+  onVideoTitleClick: PropTypes.func.isRequired
 };
 
 export default sematable('VideoList', VideoList, columns);

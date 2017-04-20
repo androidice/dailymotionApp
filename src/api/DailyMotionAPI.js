@@ -17,7 +17,6 @@ export function getAccessToken(auth_code) {
 }
 
 export function getVideos(access_token) {
-debugger;
   return new Promise((resolve, reject) => {
     request
       .post(settings.host + '/getVideos')

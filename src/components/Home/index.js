@@ -1,44 +1,20 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { browserHistory } from 'react-router';
-import { bindActionCreators } from 'redux';
-
-import Login from '../Login';
-
-import * as authActions from '../../actions/AuthActions';
+import ReactRedirect from 'react-redirect';
+import settings from '../../settings';
 
 class Home extends React.Component {
   constructor(props, context){
     super(props, context);
-
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.url = 'https://www.dailymotion.com/oauth/authorize?response_type=code&client_id=API_KEY&redirect_uri=REDIRECT_URL'.replace('API_KEY', settings.dailyMotion.API_KEY).replace('REDIRECT_URL', settings.dailyMotion.CALL_BACK_URL);
   }
-
-  handleSubmit(info){
-    this.props.actions.Authorize(info.username, info.password).then(()=>{
-      browserHistory.push('/dashboard');
-    },()=>{
-      browserHistory.replace("/");
-    });
-  }
-
   render(){
     return (
-      <Login onSubmit={this.handleSubmit}/>
-    );
+      <ReactRedirect location={this.url}>
+      </ReactRedirect>
+    )
   }
 }
 
-function mapStateToProps(state, ownProps){
-  return {
 
-  };
-}
 
-function mapDispatchToProps(dispatch){
-  return {
-    actions: bindActionCreators(authActions, dispatch)
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default Home;
