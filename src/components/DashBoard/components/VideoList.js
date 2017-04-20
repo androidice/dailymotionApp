@@ -14,7 +14,6 @@ class VideoList extends React.Component {
   }
 
   render(){
-    debugger;
     const {
       headers: {id, title, channel, owner},
       data } = this.props;
