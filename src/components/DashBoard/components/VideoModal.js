@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import Modal from 'react-modal';
+import Dailymotion from 'react-dailymotion';
 
 let VideoModal = (props) =>{
   const {video, isOpen, contentLabel, closeModal } = props;
@@ -8,6 +9,7 @@ let VideoModal = (props) =>{
       top                   : '50%',
       left                  : '50%',
       right                 : 'auto',
+      width                 : '800px',
       bottom                : 'auto',
       marginRight           : '-50%',
       transform             : 'translate(-50%, -50%)'
@@ -20,8 +22,13 @@ let VideoModal = (props) =>{
       contentLabel={contentLabel}
       style={customStyles}
     >
-      <span>{video.title}</span>
-
+      <Dailymotion
+        video={video.id}
+        uiTheme="light"
+        autoplay
+        width="600px"
+      />
+      <h3>{video.title}</h3>
       <button onClick={closeModal}>close</button>
     </Modal>
   );
