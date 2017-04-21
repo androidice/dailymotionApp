@@ -12,11 +12,13 @@ class DashBoard extends React.Component {
       access_token: this.props.access_token,
       videos: this.props.videos,
       modalIsOpen: false,
-      video: this.props.video
+      video: this.props.video,
+      videoQuality: '240'
     };
     this.handleOpenModal = this.handleOpenModal.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
     this.handleClickVideoTitle = this.handleClickVideoTitle.bind(this);
+    this.handleAdjustVideoQuality = this.handleAdjustVideoQuality.bind(this);
 
     let auth_code = localStorage.getItem('auth_code');
     if(auth_code){
@@ -36,6 +38,10 @@ class DashBoard extends React.Component {
     event.preventDefault();
     let videoId = event.target.id || '';
     this.props.actions.getVideo(this.state.access_token, videoId);
+  }
+
+  handleAdjustVideoQuality(selected){
+    this.setState({videoQuality: selected.value});
   }
 
   componentWillReceiveProps(nextProps){
@@ -58,8 +64,15 @@ class DashBoard extends React.Component {
     return (
       <div>
         <h2>DashBoard</h2>
-        <VideoList data={this.state.videos} onVideoTitleClick={this.handleClickVideoTitle}/>
-        <VideoModal isOpen={this.state.modalIsOpen} contentLabel="videoModal" closeModal={this.handleCloseModal} video={this.state.video}/>
+        <VideoList data={this.state.videos}
+                   onVideoTitleClick={this.handleClickVideoTitle}/>
+        <VideoModal isOpen={this.state.modalIsOpen}
+                    contentLabel="videoModal"
+                    closeModal={this.handleCloseModal}
+                    video={this.state.video}
+                    videoQuality={this.state.videoQuality}
+                    adjustVideoQuality={this.handleAdjustVideoQuality}
+      />
       </div>
     );
   }

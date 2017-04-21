@@ -6,7 +6,8 @@ import { Provider } from 'react-redux';
 import routes from './routes';
 import configureStore from './store/configureStore';
 
-import '../node_modules/bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'react-select/dist/react-select.css';
 
 const store = configureStore();
 
