@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
 import sematable, { SortableHeader } from 'sematable';
 
 const columns = [
@@ -31,7 +30,7 @@ let VideoList = (props)=>{
              <tr key={app.id}>
                 <td>{app.id}</td>
                 <td>
-                  <a id={app.id} onClick={onVideoTitleClick}>
+                  <a style={{cursor: 'pointer'}} id={app.id} onClick={onVideoTitleClick}>
                     {app.title}
                   </a>
                 </td>

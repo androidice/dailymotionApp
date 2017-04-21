@@ -64,8 +64,27 @@ function getVideo(app){
   });
 }
 
+function logOut(app){
+  app.post('/logOut',(req, res)=>{
+    request({
+      method: 'GET',
+      url: 'https://api.dailymotion.com/logout',
+      headers: {
+        Authorization: 'Bearer ' + req.body.access_token
+      }
+    }, (error)=>{
+      if(!error){
+        res.type('application/json');
+        res.status(200).send({signOut: true});
+        res.end();
+      }
+    });
+  });
+}
+
 export default function exposeDailyMotionApi(app){
   getAccessToken(app);
   getVideos(app);
   getVideo(app);
+  logOut(app);
 }

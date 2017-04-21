@@ -24,7 +24,7 @@ class Success extends React.Component {
     if(nextProps.access_token!==this.state.access_token) {
       this.setState({access_token: nextProps.access_token});
       this.props.appActions.setLoginState(true);
-      browserHistory.replace('/dashboard?access_token=' + nextProps.access_token);
+      browserHistory.replace('/dashboard');
     }
   }
 

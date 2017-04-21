@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import VideoList from './components/VideoList';
 import VideoModal from './components/VideoModal';
 import * as dailyMotionActions from '../../actions/DailyMotionActions';
-import { browserHistory } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 
 class DashBoard extends React.Component {
   constructor(props, context){
@@ -23,8 +23,8 @@ class DashBoard extends React.Component {
   }
 
   componentDidMount(){
-    if(this.props.location && this.props.location.query && this.props.location.query.access_token){
-      this.props.actions.getVideos(this.props.location.query.access_token);
+    if(this.props.access_token){
+      this.props.actions.getVideos(this.props.access_token);
       browserHistory.replace('/dashboard');
     }
   }
@@ -65,6 +65,7 @@ class DashBoard extends React.Component {
     return (
       <div>
         <h2>DashBoard</h2>
+        <Link to="/logout">Sign Out</Link>
         <VideoList data={this.state.videos}
                    onVideoTitleClick={this.handleClickVideoTitle}/>
         <VideoModal isOpen={this.state.modalIsOpen}

@@ -35,7 +35,6 @@ export function getVideos(access_token) {
   };
 }
 
-
 export function getVideo(access_token, video_id){
   return function (dispatch){
     return dailyActionsApi.getVideo(access_token, video_id).then((response)=>{

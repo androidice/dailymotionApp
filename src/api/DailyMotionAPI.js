@@ -45,3 +45,18 @@ export function getVideo(access_token, video_id){
       });
   });
 }
+
+export function logOut(access_token){
+  return new Promise((resolve, reject)=>{
+    request
+      .post(settings.host + '/logOut')
+      .send({ access_token })
+      .end((err, res) => {
+        if (!err) {
+          resolve(JSON.parse(res.text));
+        } else {
+          reject(err);
+        }
+      });
+  });
+}
