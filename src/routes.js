@@ -12,7 +12,7 @@ export default (
     <IndexRoute component={Home}/>
     <Route path="success(/:code)(/:scope)(/:uid)(/:sig)" component={Success}/>
     <Route component={AuthHandler}>
-      <Route path="dashboard" component={DashBoard}/>
+      <Route path="dashboard(/:access_token)" component={DashBoard}/>
     </Route>
   </Route>
 );

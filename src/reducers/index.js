@@ -1,17 +1,15 @@
 import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
 import { reducer as sematable } from 'sematable';
-import AuthReducer from './AuthReducer';
-import loggedIn from './StatusReducer';
 import AccessTokenReducer from './AccessTokenReducer';
 import videos from './VideosReducer';
 import video from './VideoReducer';
+import loggedIn from './LoginStateReducer';
 
 
 const rootReducer = combineReducers({
-  user: AuthReducer,
-  loggedIn,
   form: formReducer,
+  loggedIn,
   access_token: AccessTokenReducer,
   videos,
   video,

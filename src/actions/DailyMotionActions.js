@@ -13,6 +13,8 @@ export function getVideoAction(video){
   return {type: types.GET_VIDEO, video};
 }
 
+
+
 export function getAccessToken(auth_code) {
   return function(dispatch){
     return dailyActionsApi.getAccessToken(auth_code).then((response)=>{
@@ -30,17 +32,16 @@ export function getVideos(access_token) {
     }).catch((error)=>{
       throw(error);
     });
-  }
+  };
 }
 
 
 export function getVideo(access_token, video_id){
-  debugger;
   return function (dispatch){
     return dailyActionsApi.getVideo(access_token, video_id).then((response)=>{
       dispatch(getVideoAction(response.video));
     }).catch((error)=>{
       throw(error);
     });
-  }
+  };
 }

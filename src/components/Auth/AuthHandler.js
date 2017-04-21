@@ -3,7 +3,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 
-import * as statusActions from '../../actions/StatusActions';
 
 class AuthHandler extends React.Component {
   constructor(props, context){
@@ -34,15 +33,9 @@ AuthHandler.propTypes ={
 
 function mapStateToProps(state, ownProps){
   return {
-    isLoggedIn: true,
+    isLoggedIn: state.loggedIn || false,
     currentURL: ownProps.location.pathname
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(statusActions, dispatch)
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(AuthHandler);
+export default connect(mapStateToProps)(AuthHandler);

@@ -32,7 +32,6 @@ export function getVideos(access_token) {
 }
 
 export function getVideo(access_token, video_id){
-  debugger;
   return new Promise((resolve, reject)=>{
     request
       .post(settings.host + '/getVideo')

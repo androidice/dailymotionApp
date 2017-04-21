@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import VideoList from './components/VideoList';
 import VideoModal from './components/VideoModal';
 import * as dailyMotionActions from '../../actions/DailyMotionActions';
+import { browserHistory } from 'react-router';
 
 class DashBoard extends React.Component {
   constructor(props, context){
@@ -19,10 +20,26 @@ class DashBoard extends React.Component {
     this.handleCloseModal = this.handleCloseModal.bind(this);
     this.handleClickVideoTitle = this.handleClickVideoTitle.bind(this);
     this.handleAdjustVideoQuality = this.handleAdjustVideoQuality.bind(this);
+  }
 
-    let auth_code = localStorage.getItem('auth_code');
-    if(auth_code){
-      this.props.actions.getAccessToken(auth_code);
+  componentDidMount(){
+    if(this.props.location && this.props.location.query && this.props.location.query.access_token){
+      this.props.actions.getVideos(this.props.location.query.access_token);
+      browserHistory.replace('/dashboard');
+    }
+  }
+
+  componentWillReceiveProps(nextProps){
+    if(nextProps.access_token!==this.state.access_token) {
+      this.props.actions.getVideos(nextProps.access_token);
+      this.setState({access_token: nextProps.access_token});
+    }
+    if(nextProps.videos && nextProps.videos.length > 0){
+      this.setState({videos: Object.assign([], nextProps.videos)});
+    }
+    if(nextProps.video && nextProps.video.id){
+      this.setState({video: Object.assign({}, nextProps.video)});
+      this.handleOpenModal();
     }
   }
 
@@ -44,23 +61,7 @@ class DashBoard extends React.Component {
     this.setState({videoQuality: selected.value});
   }
 
-  componentWillReceiveProps(nextProps){
-    if(nextProps.access_token!==this.state.access_token) {
-      console.log('access_token', nextProps.access_token);
-      this.props.actions.getVideos(nextProps.access_token);
-      this.setState({access_token: nextProps.access_token});
-    }
-    if(nextProps.videos && nextProps.videos.length > 0){
-      this.setState({videos: Object.assign([], nextProps.videos)});
-    }
-    if(nextProps.video && nextProps.video.id){
-      this.setState({video: Object.assign({}, nextProps.video)});
-      this.handleOpenModal();
-    }
-  }
-
   render(){
-    debugger;
     return (
       <div>
         <h2>DashBoard</h2>
@@ -81,7 +82,9 @@ class DashBoard extends React.Component {
 DashBoard.propTypes = {
   access_token: PropTypes.string,
   videos: PropTypes.array,
-  actions: PropTypes.object
+  video: PropTypes.object,
+  actions: PropTypes.object,
+  location: PropTypes.object
 };
 
 function mapStateToProps(state, ownProps){

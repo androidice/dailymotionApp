@@ -9,9 +9,8 @@ class Home extends React.Component {
   }
   render(){
     return (
-      <ReactRedirect location={this.url}>
-      </ReactRedirect>
-    )
+      <ReactRedirect location={this.url}/>
+    );
   }
 }
 
